@@ -57,7 +57,8 @@ handleSubmit(e) {
   const portfolioSnapShotRef = firebase.database().ref('portfolioSnapshots');
   const portfolioSnapshot = {
     type:this.state.cryptoType, 
-    percentage: this.state.cryptoPercentatge
+    percentage: this.state.cryptoPercentatge,
+    useruid: this.state.user.uid
   }
   portfolioSnapShotRef.push(portfolioSnapshot);
   this.setState ({
@@ -111,7 +112,7 @@ componentDidMount (){
       <div className="App">
         <header>
           <div className = "wrapper">
-            <h1> Crypto Challenge </h1> 
+            <h1> Crypto Battle </h1> 
             {this.state.user ?
             <button onClick= {this.logout}> Log Out</button>
             :
@@ -119,20 +120,23 @@ componentDidMount (){
           }
           </div>
         </header>
-        <div className = "container">
-          <section className = "add-item">
           {this.state.user ?
-          <h3> Welcome {this.state.user.displayName} </h3>
-          :
-          null
-        }
-            <form onSubmit = {this.handleSubmit}>
-              <input type = "text"  name = 'cryptoType' placeholder = 'What are you holding?' onChange = {this.handleChange} value = {this.state.cryptoType}/>
-              <input type = 'number' name = 'cryptoPercentatge' placeholder = 'What % of your portfolio?' onChange = {this.handleChange} value = {this.state.cryptoPercentatge}/>
-              <button> Save </button>  
-            </form>
-          </section>
-           <section className = "display-item">
+            <div>
+              <div className='user-profile'>
+                <img src={this.state.user.photoURL} />
+              </div>
+              <div className = "container">
+                <section className = "add-item">
+               
+                  <form onSubmit = {this.handleSubmit}>
+                    <input type = "text"  name = 'cryptoType' placeholder = 'What are you holding?' onChange = {this.handleChange} value = {this.state.cryptoType}/>
+                    <input type = 'number' name = 'cryptoPercentatge' placeholder = 'What % of your portfolio?' onChange = {this.handleChange} value = {this.state.cryptoPercentatge}/>
+                    <button> Save </button>  
+                  </form>
+                </section>
+            
+
+            <section className = "display-item">
              <div className='wrapper'>
               <ul>
               {this.state.snapshots.map((snapshot) => {
@@ -152,6 +156,24 @@ componentDidMount (){
             </div>
           </section>
           </div>
+
+          
+
+
+
+            </div>
+            :
+            <div className='wrapper'>
+              <p>Create and account or log in to view the battle</p>
+            </div>
+          }
+
+
+
+        
+
+
+           
 
         </div>
 
