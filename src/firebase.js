@@ -9,5 +9,8 @@ const config = {
     storageBucket: "cryptochallenge-c604b.appspot.com",
     messagingSenderId: "130717529355"
   };
-  firebase.initializeApp(config);
-  export default firebase;
+firebase.initializeApp(config);
+firebase.auth().languageCode = 'en';
+export const provider = new firebase.auth.GoogleAuthProvider();
+export const auth = firebase.auth();
+export default firebase;

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import firebase from './firebase.js';
+import firebase, {auth, provider} from './firebase.js';
+
+
 import './App.css';
 
 class App extends Component {
@@ -10,13 +12,39 @@ class App extends Component {
     this.state = {
       cryptoType: '',
       cryptoPercentatge: '',
-      snapshots: []
+      snapshots: [],
+      user: null
     }
+
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.removeSnapshot = this.removeSnapshot.bind(this);
+    this.login = this.login.bind(this);
+    this.logout = this.logout.bind(this)
 
   }
+
+  logout(){
+    auth.signOut()
+    .then (()=>{
+      this.setState({
+        user: null
+      });
+    });
+
+  }
+
+login() {
+  auth.signInWithRedirect(provider) 
+    .then((result) => {
+      const user = result.user;
+      this.setState({
+        user
+      });
+    });
+}
+
 
 handleChange(e) {
   this.setState ({
@@ -44,8 +72,19 @@ removeSnapshot(snapshotID) {
   snapshotRef.remove()
 }
 
+
+
 componentDidMount (){
+  auth.onAuthStateChanged((user) => {
+    if (user){
+      this.setState({user});
+    }
+  });
+
+
+
   const portfolioSnapShotRef = firebase.database().ref('portfolioSnapshots');
+  
   portfolioSnapShotRef.on('value', (dbdata) => {
     let items = dbdata.val();
     let newState = [];
@@ -54,17 +93,15 @@ componentDidMount (){
         id: snapshot,
         cryptoType: items[snapshot].type,
         cryptoPercentatge:  items[snapshot].percentage
-
       });
     }
     this.setState({
       snapshots: newState
     })
+  });
 
 
-    console.log(items)}
 
-    )
   }
 
 
@@ -75,6 +112,11 @@ componentDidMount (){
         <header>
           <div className = "wrapper">
             <h1> Crypto Challenge </h1> 
+            {this.state.user ?
+            <button onClick= {this.logout}> Log Out</button>
+            :
+            <button onClick = {this.login}> Log in </button> 
+          }
           </div>
         </header>
         <div className = "container">
