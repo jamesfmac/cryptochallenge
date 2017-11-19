@@ -121,6 +121,11 @@ componentDidMount (){
         </header>
         <div className = "container">
           <section className = "add-item">
+          {this.state.user ?
+          <h3> Welcome {this.state.user.displayName} </h3>
+          :
+          null
+        }
             <form onSubmit = {this.handleSubmit}>
               <input type = "text"  name = 'cryptoType' placeholder = 'What are you holding?' onChange = {this.handleChange} value = {this.state.cryptoType}/>
               <input type = 'number' name = 'cryptoPercentatge' placeholder = 'What % of your portfolio?' onChange = {this.handleChange} value = {this.state.cryptoPercentatge}/>
