@@ -78,7 +78,7 @@ header i {
   overflow: hidden;
 }
 
-input {
+.add-item input {
   font-size: 22px;
   color: #000;
   padding: 18px 22px;

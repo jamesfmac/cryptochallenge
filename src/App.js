@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import firebase, {auth, provider} from './firebase.js';
 
+import  UpdatePortfolio from './components/UpdatePortfolio.js'
+
 
 import './App.css';
 
@@ -11,9 +13,10 @@ class App extends Component {
     super();
     this.state = {
       cryptoType: '',
-      cryptoPercentatge: '',
+      cryptoPercentatge: 0,
       snapshots: [],
-      user: null
+      user: null,
+      uid: ''
     }
 
 
@@ -76,16 +79,36 @@ removeSnapshot(snapshotID) {
 
 
 componentDidMount (){
+
+ 
+
   auth.onAuthStateChanged((user) => {
     if (user){
-      this.setState({user});
+      console.log('seeting uid to ' + user.uid)
+      this.setState({
+        uid: user.uid,
+        user
+      });
+      
+
     }
   });
 
 
 
+
+
+
+
+
   const portfolioSnapShotRef = firebase.database().ref('portfolioSnapshots');
   
+  //this isn't working for some reason. Seems to be relatedd to string vs non-string in uid 
+ portfolioSnapShotRef.orderByChild("useruid").equalTo(this.state.uid).on('value', (snapshot) =>{
+  console.log(this.state.uid);
+  console.log(snapshot.val());
+});
+
   portfolioSnapShotRef.on('value', (dbdata) => {
     let items = dbdata.val();
     let newState = [];
@@ -93,7 +116,8 @@ componentDidMount (){
       newState.push({
         id: snapshot,
         cryptoType: items[snapshot].type,
-        cryptoPercentatge:  items[snapshot].percentage
+        cryptoPercentatge:  items[snapshot].percentage,
+        useruid: items[snapshot].useruid
       });
     }
     this.setState({
@@ -123,26 +147,23 @@ componentDidMount (){
           {this.state.user ?
             <div>
               <div className='user-profile'>
-                <img src={this.state.user.photoURL} />
+                <img src={this.state.user.photoURL} alt = 'User Profile'/>
               </div>
+
               <div className = "container">
-                <section className = "add-item">
-               
-                  <form onSubmit = {this.handleSubmit}>
-                    <input type = "text"  name = 'cryptoType' placeholder = 'What are you holding?' onChange = {this.handleChange} value = {this.state.cryptoType}/>
-                    <input type = 'number' name = 'cryptoPercentatge' placeholder = 'What % of your portfolio?' onChange = {this.handleChange} value = {this.state.cryptoPercentatge}/>
-                    <button> Save </button>  
-                  </form>
-                </section>
-            
+           <UpdatePortfolio/>
 
             <section className = "display-item">
              <div className='wrapper'>
               <ul>
               {this.state.snapshots.map((snapshot) => {
+                
                 return( 
+
+                 
                   <li key = {snapshot.id} >
                     <h3> {snapshot.cryptoType}</h3>
+                 
                     <p> {snapshot.cryptoPercentatge}</p>
                     <button onClick = {()=> this.removeSnapshot(snapshot.id)}> Remove Snapshot</button>
                   </li>
