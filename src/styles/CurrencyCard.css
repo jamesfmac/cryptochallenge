@@ -1,0 +1,58 @@
+.currencyCard {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	align-items: stretch;
+	border: 0px;
+	border-color: black;
+	background: lightgrey;
+	border-style: dashed;
+	border-radius:4px;
+	box-shadow: 0 3px 4px 0 rgba(0,0,0,.14), 0 3px 3px -2px rgba(0,0,0,.12), 0 1px 8px 0 rgba(0,0,0,.2);
+}
+
+.crypto-logo{
+	flex: 1 1 30%;
+	background-color: #32fff7;
+	border-radius: 4px 0px 0px 4px;
+
+}
+
+.crypto-logo img{
+	order: 1;
+	padding-left: 2px;
+	
+	
+}
+
+.currencyInfo{
+	border: 0px;
+	border-color: green;
+	background: white;
+	border-style: solid;
+	flex: 1 1 30%;
+}
+
+.currencyInfo h3{
+	align-self: center;
+	font-size: 14px;
+	text-align: center;
+}
+
+
+.currencyInput{
+	display: flex;
+	flex-direction: row;
+	border: 0px;
+	border-color: green;
+	background: white;
+	border-style: solid;
+	align-items: center;
+	flex: 1 1 40%;
+}
+
+.currencyInput input{
+	background-color: white;
+	height: 25%;
+	width: 90%;
+}

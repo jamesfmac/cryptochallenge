@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../styles/UpdatePortfolio.css';
 
-import BCH from '../images/BCH.svg'
-import ETH from '../images/ETH.svg'
+import CurrencyCard from './CurrencyCard.js'
+
 
     /*
                 <section className = "add-item">
@@ -24,52 +24,13 @@ class UpdatePortfolio extends Component{
 
 
 
+
 	render(){
 		return (
 			<div className = 'update-portfolio'>
-				<table>
-				<tbody>
-					<tr>
-						<th> Crypto </th>
-						<th> Current Holdings </th>
-						<th> Update</th>
-					</tr>
-					<tr> 
-					<td>
-						<div className = 'input-group'>
-							<div className = 'crypto-logo'>
-								
-								<img src={BCH} alt="BCH Logo" />
-							</div>
-						</div>
-					</td>	
-					<td> 
-						Nill	
-					</td> 
-					<td>
-						<input type = 'text'/>
-					</td>
-					</tr>
-
-					<tr> 
-					<td>
-						<div className = 'input-group'>
-							<div className = 'crypto-logo'>
-								
-								<img src={ETH} alt="ETH Logo" />
-							</div>
-						</div>
-					</td>	
-					<td> 
-						Nill	
-					</td> 
-					<td>
-						<input type = 'text'/>
-					</td>
-					</tr>
-				</tbody>
-
-				</table> 
+				<CurrencyCard/>
+				
+				<button> Submit </button>
 
 			</div>			
 
