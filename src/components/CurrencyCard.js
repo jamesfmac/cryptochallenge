@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/CurrencyCard.css';
+import NumberFormat from 'react-number-format';
 
 import BCH from '../images/BCH.svg'
 import ETH from '../images/ETH.svg'
@@ -48,8 +49,16 @@ class CurrencyCard extends Component{
               </div>
               </div> 
               <div className = 'currencyInput'>
-                <input type = 'currency' placeholder = '$'>
-                </input> 
+              <span className = 'currencyInputLabel'>Buy</span>
+                
+                <NumberFormat 
+                thousandSeparator = {true} 
+                prefix = {'$'} 
+                isNumericString = {true} 
+                decimalScale = {2} 
+                fixedDecimalScale = {true}
+                placeholder = '$00.00'
+                />
               </div>
 
                
