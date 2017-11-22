@@ -8,6 +8,9 @@ import ETH from '../images/ETH.svg'
 
 
 class CurrencyCard extends Component{
+  constructor (props){
+    super(props)
+  }
 
 
   render(){
@@ -17,12 +20,12 @@ class CurrencyCard extends Component{
       <div  className = 'currencyCard' >
               <div className = 'crypto-logo'> 
                 
-                  <img src={ETH} alt="BCH Logo" />
+                  <img src={this.props.currencyImage} alt= {this.props.currencyDisplayName}  />
                 
               </div>
               <div className = 'currencyInfo'>
                 <div  className = 'currencyName'>
-                 <h3>  BCH  <span className= 'cPrice'> A$5,000.00</span> </h3> 
+                 <h3>  {this.props.currencyDisplayName}  <span className= 'cPrice'> A$5,000.00</span> </h3> 
                 </div>
 
                 <div  className = 'currencyFinancials'>

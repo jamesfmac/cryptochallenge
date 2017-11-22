@@ -1,7 +1,45 @@
 import React, { Component } from 'react';
 import '../styles/UpdatePortfolio.css';
 
+import BCH from '../images/BCH.svg'
+import ETH from '../images/ETH.svg'
+import DOGE from '../images/DOGE.svg'
+import LTC from '../images/LTC.svg'
+import XRP from '../images/XRP.svg'
+import GLD from '../images/GLD.svg'
+
 import CurrencyCard from './CurrencyCard.js'
+
+
+var tradableCurrencies = [ 
+
+	{
+		currencyDisplayName:'BCH',
+		currencyImage:BCH
+	},
+	{
+		currencyDisplayName:'ETH',
+		currencyImage:ETH
+	},
+	{
+		currencyDisplayName:'DOGE',
+		currencyImage:DOGE
+	},
+	{
+		currencyDisplayName:'LTC',
+		currencyImage:LTC
+	},
+	{
+		currencyDisplayName:'XRP',
+		currencyImage:XRP
+	},
+	{
+		currencyDisplayName:'GLD',
+		currencyImage:GLD
+	},
+
+];
+
 
 
     /*
@@ -23,13 +61,19 @@ import CurrencyCard from './CurrencyCard.js'
 class UpdatePortfolio extends Component{
 
 
+	renderCards (){
+		let cards = tradableCurrencies
+		return (
+			cards.map ( card=>(
+			<CurrencyCard currencyDisplayName = {card.currencyDisplayName} currencyImage = {card.currencyImage} />)
+			))
+	}
 
 
 	render(){
 		return (
 			<div className = 'update-portfolio'>
-				<CurrencyCard/>
-				
+				{this.renderCards()}
 				<button> Submit </button>
 
 			</div>			
