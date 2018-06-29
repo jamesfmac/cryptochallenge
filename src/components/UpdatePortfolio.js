@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/UpdatePortfolio.css';
 
-import BCH from '../images/BCH.svg'
+import BTC from '../images/BTC.svg'
 import ETH from '../images/ETH.svg'
 import DOGE from '../images/DOGE.svg'
 import LTC from '../images/LTC.svg'
@@ -14,8 +14,8 @@ import CurrencyCard from './CurrencyCard.js'
 var tradableCurrencies = [ 
 
 	{
-		currencyDisplayName:'BCH',
-		currencyImage:BCH
+		currencyDisplayName:'BTC',
+		currencyImage:BTC
 	},
 	{
 		currencyDisplayName:'ETH',
@@ -64,7 +64,7 @@ class UpdatePortfolio extends Component{
 	renderCards (){
 		let cards = tradableCurrencies
 		return (
-			cards.map ( card=>(
+			cards.map ( card =>(
 			<CurrencyCard currencyDisplayName = {card.currencyDisplayName} currencyImage = {card.currencyImage} />)
 			))
 	}

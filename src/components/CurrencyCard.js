@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import '../styles/CurrencyCard.css';
 import NumberFormat from 'react-number-format';
 
-import BCH from '../images/BCH.svg'
-import ETH from '../images/ETH.svg'
-
 
 
 class CurrencyCard extends Component{
   constructor (props){
+    
     super(props)
+
   }
 
 
@@ -18,8 +17,7 @@ class CurrencyCard extends Component{
 
     return(
       <div  className = 'currencyCard' >
-              <div className = 'crypto-logo'> 
-                
+              <div className = 'crypto-logo'>                 
                   <img src={this.props.currencyImage} alt= {this.props.currencyDisplayName}  />
                 
               </div>
@@ -27,21 +25,14 @@ class CurrencyCard extends Component{
                 <div  className = 'currencyName'>
                  <h3>  {this.props.currencyDisplayName}  <span className= 'cPrice'> A$5,000.00</span> </h3> 
                 </div>
-
-                <div  className = 'currencyFinancials'>
-                                   
+                <div  className = 'currencyFinancials'>                                 
                   <div className = 'tradingDetails'>
-
                     <div className = 'amountChangeBlock'>
-
                       <span className = 'amountChangeSuper'> 
                       <span className='amountChangeDirectionPositive'>+ </span> 
                       A$
                       </span>
-                      <span className = 'dollarChange'> $123 </span> <span className ='amountChangeSuper'>.00 </span>
-
-
-                       
+                      <span className = 'dollarChange'> $123 </span> <span className ='amountChangeSuper'>.00 </span>                 
                       <div className = 'timePeriod'>
                         Last 24 hours (AUD)
                       </div>
@@ -66,9 +57,6 @@ class CurrencyCard extends Component{
 
                
             </div>
-
-             
-
 
     )
 

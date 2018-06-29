@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
 import firebase, {auth, provider} from './firebase.js';
+import axios from 'axios';
 
-import  UpdatePortfolio from './components/UpdatePortfolio.js'
+import UpdatePortfolio from './components/UpdatePortfolio.js'
+import WelcomeName from './components/WelcomeName.js'
 
 
 import './App.css';
+
+console.log(React.version)
 
 class App extends Component {
 
@@ -16,8 +20,9 @@ class App extends Component {
       cryptoPercentatge: 0,
       snapshots: [],
       user: null,
-      uid: ''
-    }
+      uid: '',
+      apiResponse: 'Chuck is thinking...'
+    } 
 
 
     this.handleChange = this.handleChange.bind(this);
@@ -79,6 +84,15 @@ removeSnapshot(snapshotID) {
 
 
 componentDidMount (){
+ console.log('componentDidMount');
+
+  axios.get('https://api.chucknorris.io/jokes/random')
+    .then(response =>{
+      this.setState({apiResponse: response.data.value});
+    }).catch(error => {
+      console.log(error);
+
+    })
 
  
 
@@ -89,7 +103,6 @@ componentDidMount (){
         uid: user.uid,
         user
       });
-      
 
     }
   });
@@ -124,11 +137,7 @@ componentDidMount (){
       snapshots: newState
     })
   });
-
-
-
   }
-
 
 
   render() {
@@ -138,7 +147,11 @@ componentDidMount (){
           <div className = "wrapper">
             <h1> Crypto Battle </h1> 
             {this.state.user ?
-            <button onClick= {this.logout}> Log Out</button>
+             <div>
+              <button onClick= {this.logout}> Log Out</button>
+
+              
+            </div>
             :
             <button onClick = {this.login}> Log in </button> 
           }
@@ -153,7 +166,13 @@ componentDidMount (){
               <div className = "container">
            <UpdatePortfolio/>
 
+           
+
             <section className = "display-item">
+            <WelcomeName userName = {this.state.apiResponse}/>
+
+        {/* dont understand what is happening below this line */}
+
              <div className='wrapper'>
               <ul>
               {this.state.snapshots.map((snapshot) => {
@@ -178,10 +197,7 @@ componentDidMount (){
           </section>
           </div>
 
-          
-
-
-
+     
             </div>
             :
             <div className='wrapper'>
@@ -189,12 +205,6 @@ componentDidMount (){
             </div>
           }
 
-
-
-        
-
-
-           
 
         </div>
 
